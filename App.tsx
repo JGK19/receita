@@ -1,20 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from "react";
+import Calculate from "./screens/Calculate";
+import Ingredients from "./screens/Ingredients";
+
+const screens = {
+  Calculate,
+  Ingredients,
+};
+type ScreenNames = keyof typeof screens;
+
+export type ScreenProps = {
+  navigate: (value: ScreenNames) => void;
+};
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [active, setActive] = useState<ScreenNames>("Calculate");
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  return screens[active]({ navigate: setActive });
+}
