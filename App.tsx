@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Calculate from "./screens/Calculate";
 import Ingredients from "./screens/Ingredients";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const screens = {
   Calculate,
@@ -13,7 +14,11 @@ export type ScreenProps = {
 };
 
 export default function App() {
-  const [active, setActive] = useState<ScreenNames>("Calculate");
+  const [active, navigate] = useState<ScreenNames>("Calculate");
 
-  return screens[active]({ navigate: setActive });
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      {screens[active]({ navigate })}
+    </SafeAreaView>
+  );
 }
